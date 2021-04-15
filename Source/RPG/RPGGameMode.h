@@ -15,4 +15,5 @@ class RPG_API ARPGGameMode : public AGameModeBase
 	GENERATED_BODY()
 
 	ARPGGameMode(const class FObjectInitializer& ObjectInitializer);
+	virtual void BeginPlay() override;
 };
