@@ -2,11 +2,14 @@
 
 #pragma once
 
+#include "FEnemyInfo.h"
 #include "FCharacterInfo.h"
 #include "FCharacterClassInfo.h"
 #include "CoreMinimal.h"
 #include "UObject/NoExportTypes.h"
 #include "GameCharacter.generated.h"
+
+class CombatEngine;
 
 /**
  * 
@@ -43,8 +46,21 @@ class RPG_API UGameCharacter : public UObject
 		UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = CharacterInfo)
 			int32 LUCK;
 
+		CombatEngine* combatInstance;
 
 		static UGameCharacter* CreateGameCharacter(FCharacterInfo* characterInfo, UObject* outer);
 
+		static UGameCharacter* CreateGameCharacter(FEnemyInfo* enemyInfo, UObject* outer);
+
 		void BeginDestroy() override;
+
+	protected:
+		float testDelayTimer;
+
+	public:
+		void BeginMakeDecision();
+		bool MakeDecision(float DeltaSeconds);
+
+		void BeginExecuteAction();
+		bool ExecuteAction(float DeltaSeconds);
 };

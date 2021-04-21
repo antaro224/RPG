@@ -2,6 +2,7 @@
 
 #pragma once
 
+// #include "GameCharacter.h"
 #include "Engine/DataTable.h"
 #include "CoreMinimal.h"
 #include "UObject/NoExportTypes.h"

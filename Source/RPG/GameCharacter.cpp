@@ -1,7 +1,8 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-#include "RPG.h"
 #include "GameCharacter.h"
+#include "RPG.h"
+#include "CombatEngine.h"
 
 UGameCharacter* UGameCharacter::CreateGameCharacter(FCharacterInfo* characterInfo, UObject* outer)
 {
@@ -38,4 +39,47 @@ UGameCharacter* UGameCharacter::CreateGameCharacter(FCharacterInfo* characterInf
 void UGameCharacter::BeginDestroy()
 {
 	Super::BeginDestroy();
+}
+
+void UGameCharacter::BeginMakeDecision()
+{
+	UE_LOG(LogTemp, Log, TEXT("Character %s making decision"), *this->CharacterName);
+	this->testDelayTimer = 1;
+}
+
+bool UGameCharacter::MakeDecision(float DeltaSeconds)
+{
+	this->testDelayTimer -= DeltaSeconds;
+	return this->testDelayTimer <= 0;
+}
+
+void UGameCharacter::BeginExecuteAction()
+{
+	UE_LOG(LogTemp, Log, TEXT("Character %s executing action"), *this->CharacterName);
+	this->testDelayTimer = 1;
+}
+
+bool UGameCharacter::ExecuteAction(float DeltaSeconds)
+{
+	this->testDelayTimer -= DeltaSeconds;
+	return this->testDelayTimer <= 0;
+}
+
+UGameCharacter* UGameCharacter::CreateGameCharacter(FEnemyInfo* enemyInfo, UObject* outer)
+{
+	UGameCharacter* character = NewObject<UGameCharacter>(outer);
+
+	character->CharacterName = enemyInfo->EnemyName;
+	character->ClassInfo = nullptr;
+
+	character->MHP = enemyInfo->MHP;
+	character->MMP = 0;
+	character->HP = enemyInfo->MHP;
+	character->MP = 0;
+
+	character->ATK = enemyInfo->ATK;
+	character->DEF = enemyInfo->DEF;
+	character->LUCK = enemyInfo->Luck;
+
+	return character;
 }

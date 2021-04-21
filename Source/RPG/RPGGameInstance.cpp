@@ -1,8 +1,8 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-
-#include "RPG.h"
 #include "RPGGameInstance.h"
+#include "RPG.h"
+
 URPGGameInstance::URPGGameInstance(const class FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer)
 {
 	isInitialized = false;

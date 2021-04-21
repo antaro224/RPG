@@ -2,8 +2,11 @@
 
 #pragma once
 
-#include "CoreMinimal.h"
 #include "GameFramework/GameModeBase.h"
+#include "GameCharacter.h"
+#include "CombatEngine.h"
+#include "Kismet/GameplayStatics.h"
+#include "CoreMinimal.h"
 #include "RPGGameMode.generated.h"
 
 /**
@@ -16,4 +19,12 @@ class RPG_API ARPGGameMode : public AGameModeBase
 
 	ARPGGameMode(const class FObjectInitializer& ObjectInitializer);
 	virtual void BeginPlay() override;
+	virtual void Tick(float DeltaTime) override;
+
+	UFUNCTION(exec)
+	void TestCombat();
+
+public:
+	CombatEngine* currentCombatInstance;
+	TArray<UGameCharacter*> enemyParty;
 };
